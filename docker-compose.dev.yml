@@ -1,0 +1,11 @@
+services:
+  app:
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      AUTO_GENERATE_APP_KEY: "true"
+
+  node:
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "5173:5173"
