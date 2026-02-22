@@ -16,7 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(CategoryResource::collection(Category::query()->latest()->get()));
+        $categories = Category::query()
+            ->latest()
+            ->paginate(10);
+        return CategoryResource::collection($categories);
+
     }
 
     /**

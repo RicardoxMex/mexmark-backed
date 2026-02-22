@@ -25,4 +25,6 @@ class CategoryResource extends JsonResource
             "updated_at" => $this->updated_at,
         ];
     }
+
+    
 }
