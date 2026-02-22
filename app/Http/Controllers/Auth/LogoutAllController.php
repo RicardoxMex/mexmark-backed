@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class LogoutAllController extends Controller
 {
@@ -17,6 +18,6 @@ class LogoutAllController extends Controller
 
         return response()->json([
             'message' => 'All sessions logged out successfully',
-        ]);
+        ])->withCookie(Cookie::create('auth_token')->withValue('')->withExpires(1));
     }
 }
