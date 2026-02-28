@@ -3,6 +3,7 @@
 namespace Modules\Categories\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryUpdateRequest extends FormRequest
 {
@@ -19,13 +20,22 @@ class CategoryUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:150', 'unique:categories,name,' . $this->route("category")],
-            'slug' => ['nullable', 'string'],
-        ];
-    }
+     public function rules(): array
+     {
+         return [
+             'name' => [
+                 'required',
+                 'string',
+                 'max:150',
+                 Rule::unique('categories', 'name')
+                     ->ignore($this->route('category')->id),
+             ],
+             'slug' => ['nullable', 'string'],
+             'description' => ['nullable', 'string'],
+             'is_active' => ['nullable', 'boolean'],
+             'is_featured' => ['nullable', 'boolean'],
+         ];
+     }
 
     public function messages(): array
     {

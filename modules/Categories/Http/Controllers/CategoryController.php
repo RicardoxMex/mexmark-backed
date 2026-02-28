@@ -7,20 +7,22 @@ use Illuminate\Http\Request;
 use Modules\Categories\Http\Requests\CategoryStoreRequest;
 use Modules\Categories\Http\Requests\CategoryUpdateRequest;
 use Modules\Categories\Http\Resources\CategoryResource;
+use Modules\Categories\Interfaces\CategoryRepositoryInterface;
 use Modules\Categories\Models\Category;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected readonly CategoryRepositoryInterface $categoryRepository)
     {
-        $categories = Category::query()
-            ->latest()
-            ->paginate(10);
-        return CategoryResource::collection($categories);
+    }
+    public function index(Request $request)
+    {
+        $perPage = $request->integer('per_page', 10);
+        $search = trim((string) ($request->query('search', $request->query('q', ''))));
+        $paginate = $request->boolean('paginate', true);
+        $categories = $this->categoryRepository->list($search, $perPage, $paginate);
 
+        return CategoryResource::collection($categories);
     }
 
     /**
