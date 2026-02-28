@@ -27,6 +27,7 @@ class CategoryStoreRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:5120'], // 5MB = 5120KB
         ];
     }
 
@@ -39,6 +40,9 @@ class CategoryStoreRequest extends FormRequest
             'name.unique' => 'The category name already exists.',
             'slug.string' => 'The slug must be a string.',
             'slug.max' => 'The slug may not be greater than 150 characters.',
+            'image.image' => 'The file must be an image.',
+            'image.mimes' => 'The image must be a file of type: jpeg, jpg, png, gif, webp.',
+            'image.max' => 'The image size may not be greater than 5MB.',
         ];
     }
 }

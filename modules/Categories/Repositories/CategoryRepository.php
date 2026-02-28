@@ -22,6 +22,8 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function find(Category $category)
     {
+        
+        
         return $category;
     }
 

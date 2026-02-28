@@ -2,6 +2,7 @@
 
 namespace Modules\Categories\Models;
 
+use App\Traits\HasImage;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,11 +10,12 @@ use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
-    use HasSlug, Searchable;
+    use HasSlug, HasImage, Searchable;
     protected $fillable = [
         'name',
         'slug',
         'description',
+        'image',
         'is_active',
         'is_featured',
     ];

@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
             CategoryRepository::class
         );
 
+        $this->app->bind(
+            \Modules\Categories\Interfaces\CategoryServiceInterface::class,
+            \Modules\Categories\Services\CategoryService::class
+        );
     }
 }
